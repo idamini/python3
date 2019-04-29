@@ -1,0 +1,20 @@
+import re
+
+address = re.compile(
+    '''
+    [\w\d.+ -]+             #Username
+    @
+    ([\w\d.]+\.)+           #Domain name prefix
+    (com|org|edu)           #Todo:support more top-level domains
+    ''',
+    re.VERBOSE)
+candidates = [
+    u'first.last@example.com',
+    u'first.last+category@gmail.com',
+    u'valid-address@mail.example.com',
+    u'not-valid@example.foo'
+    ]
+
+for candidate in candidates:
+    match = address.search(candidate)
+    print('{:<30}  {}'.format(candidate,'Matches' if match else 'No match'))
